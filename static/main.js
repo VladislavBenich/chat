@@ -6,14 +6,18 @@ const rooms = document.getElementById('list')
 
 let messages = []
 
+location.hash = ''
+
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    socket.emit('msg', input.value, location.hash.replace('#', ''))
+    const room = location.hash.replace('#', '')
+
+    socket.emit('msg', input.value, room)
 
     let item = document.createElement('li')
     item.innerText = input.value
     $messages.append(item)
-    messages.push({ room: location.hash.replace('#', ''), msg: input.value })
+    messages.push({ room: room, msg: input.value })
 
     input.value = ''
 })
